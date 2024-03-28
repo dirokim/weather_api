@@ -41,6 +41,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                      <h1>hi</h1>
+                     
                     </div>
                 </div>
             </div>
