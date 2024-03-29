@@ -60,23 +60,25 @@
             <div class="container my-5">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
-                     <h1>hi</h1>
-                     <h1>${temp}</h1>
-                     <c:if test="${status == 0}">
-                     <i class="bi bi-brightness-high" style="font-size: 3rem" ></i>
-                     </c:if>
+                     <h1>hi</h1>         
+                     <span>${region}</span>
+                     <span>${temp}</span>
+                    
+                     <span><c:if test="${status == 0}">
+                     <i class="bi bi-brightness-high" style="font-size: 3rem" ></i> </c:if>
+                     </span>
                      
-                     <c:if test="${status ==1}">
-                     <i class="bi bi-cloud-drizzle" style="font-size: 3rem"></i>
-                     </c:if>
-                     
-                     <c:if test="${status ==2}">
-                     <i class="bi bi-cloud-drizzle" style="font-size: 3rem"></i>
-                     </c:if>
-                     
-                     <c:if test="${status ==3}">
-                     <i class="bi bi-cloud-snow" style="font-size: 3rem"></i>
-                     </c:if>
+                     <span><c:if test="${status ==1}">
+                     <i class="bi bi-cloud-drizzle" style="font-size: 3rem"></i> </c:if>
+                     </span>
+                    
+                     <span><c:if test="${status ==2}">
+                     <i class="bi bi-cloud-drizzle" style="font-size: 3rem"></i></c:if>
+                     </span>
+                   
+                     <span> <c:if test="${status >3}">
+                     <i class="bi bi-cloud-snow" style="font-size: 3rem"></i></c:if>
+                     </span>
                      
                      
                     </div>
