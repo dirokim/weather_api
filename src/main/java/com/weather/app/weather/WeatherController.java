@@ -59,13 +59,13 @@ public class WeatherController {
 		if(sum < 46)num--;					//api 45분부터 응답제공 45분 미만일시 이전 시간 데이터 받아오기
 		baseTime = ""+num+"00";
 		
-		WebClient webClient =  WebClient.builder()
+		WebClient webClient =  WebClient.builder()  //기본 설정
 				.baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0")
 				.build();
 		Mono<String> response  = webClient.get()
 				.uri(UriBuilder ->UriBuilder
-				.path("/getUltraSrtNcst")
-				.queryParam("serviceKey",servicekey)
+				.path("/getUltraSrtNcst")			//추가 url
+				.queryParam("serviceKey",servicekey)//파라미터 설정
 				.queryParam("numOfRows", 10)
 				.queryParam("pageNo", "1")
 				.queryParam("dataType", "JSON")
@@ -74,10 +74,10 @@ public class WeatherController {
 				.queryParam("nx", "58")
 				.queryParam("ny", "125")
 				.build())
-				.header("Content-type", "application/json")
+				.header("Content-type", "application/json")//헤더값 설정
 				.header("charset","UTF-8")
 				.retrieve()
-				.bodyToMono(String.class);
+				.bodyToMono(String.class);			//리턴 타입
 		String result =response.block();
 		 JSONParser parser = new JSONParser();
 	        JSONObject obj = (JSONObject)parser.parse(result);
