@@ -58,7 +58,6 @@ public class WeatherController {
 		int sum = Integer.parseInt(br[1]);	//분
 		if(sum < 46)num--;					//api 45분부터 응답제공 45분 미만일시 이전 시간 데이터 받아오기
 		baseTime = ""+num+"00";
-		
 		WebClient webClient =  WebClient.builder()  //기본 설정
 				.baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0")
 				.build();
