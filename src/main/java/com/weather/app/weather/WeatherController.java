@@ -37,11 +37,11 @@ import reactor.core.publisher.Mono;
 @Controller
 @Slf4j
 @RequestMapping("/weather/*")
-public class WeatherController {
+public class WeatherController  {
 	@Value("${weather.encoding.key}")
 	private String servicekey;
 	
-
+	
 	
 	//WebClient 사용
 	@GetMapping("wc")
@@ -57,7 +57,7 @@ public class WeatherController {
 		int num = Integer.parseInt(br[0]);  //시간
 		int sum = Integer.parseInt(br[1]);	//분
 		if(sum < 46)num--;					//api 45분부터 응답제공 45분 미만일시 이전 시간 데이터 받아오기
-		baseTime = ""+num+"00";
+		String baseTimes = ""+num+"00";
 		WebClient webClient =  WebClient.builder()  //기본 설정
 				.baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0")
 				.build();
@@ -69,7 +69,7 @@ public class WeatherController {
 				.queryParam("pageNo", "1")
 				.queryParam("dataType", "JSON")
 				.queryParam("base_date", baseDate)
-				.queryParam("base_time", "1300")    //fix 
+				.queryParam("base_time", baseTimes)    //fix 
 				.queryParam("nx", "58")
 				.queryParam("ny", "125")
 				.build())
@@ -147,6 +147,7 @@ public class WeatherController {
 	        JSONParser parser = new JSONParser();
 	        JSONObject obj = (JSONObject)parser.parse(result);
 	        JSONObject response = (JSONObject)obj.get("response");
+	        System.out.println(response);
 	        JSONObject body = (JSONObject)response.get("body");
 	        JSONObject items = (JSONObject) body.get("items");
 	        JSONArray list = (JSONArray)items.get("item");
