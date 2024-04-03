@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 import org.springframework.web.util.UriBuilder;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,12 +60,16 @@ public class WeatherController  {
 		int sum = Integer.parseInt(br[1]);	//분
 		if(sum < 46)num--;					//api 45분부터 응답제공 45분 미만일시 이전 시간 데이터 받아오기
 		String baseTimes = ""+num+"00";
+		//공공데이터포털에서 제공해주는 api 에서는 service key 가 다른 인코딩으로인해 값이 달라짐 DefaultUriBuilderFactory 이용해서 
+		//인코딩 모드 EncodingMode.VALUES_ONLY 로변경 
+		DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst");
+		factory.setEncodingMode(EncodingMode.VALUES_ONLY);
 		WebClient webClient =  WebClient.builder()  //기본 설정
-				.baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0")
+				.uriBuilderFactory(factory)
+				.baseUrl("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst")
 				.build();
 		Mono<String> response  = webClient.get()
 				.uri(UriBuilder ->UriBuilder
-				.path("/getUltraSrtNcst")			//추가 url
 				.queryParam("serviceKey",servicekey)//파라미터 설정
 				.queryParam("numOfRows", 10)
 				.queryParam("pageNo", "1")
@@ -73,18 +79,16 @@ public class WeatherController  {
 				.queryParam("nx", "58")
 				.queryParam("ny", "125")
 				.build())
-				.header("Content-type", "application/json")//헤더값 설정
-				.header("charset","UTF-8")
 				.retrieve()
 				.bodyToMono(String.class);			//리턴 타입
 		String result =response.block();
-		 JSONParser parser = new JSONParser();
+		 JSONParser parser = new JSONParser();		//응답을 제이슨 객체로 변경
 	        JSONObject obj = (JSONObject)parser.parse(result);
 	        JSONObject responses = (JSONObject)obj.get("response");
 	        JSONObject body = (JSONObject)responses.get("body");
 	        JSONObject items = (JSONObject) body.get("items");
-	        JSONArray list = (JSONArray)items.get("item");
-	        Map sm = (JSONObject)list.get(0);
+	        JSONArray list = (JSONArray)items.get("item"); //배열로 변경
+	        Map sm = (JSONObject)list.get(0);			   //map 에담아 값을 꺼낸다
 	        Map tm =  (JSONObject)list.get(3);
 	        String region = "현재 날씨 금천구";
 	        String status = (String) sm.get("obsrValue");
