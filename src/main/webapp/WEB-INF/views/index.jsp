@@ -39,6 +39,21 @@
 						<c:if test="${status ==3}">
 							<i class="bi bi-cloud-snow" style="font-size: 3rem"></i>
 						</c:if>
+						
+						<c:if test="${status ==5}">
+							<i class="bi bi-cloud-drizzle" style="font-size: 3rem"></i>
+						</c:if>
+						
+						<c:if test="${status ==6}">
+							<i class="bi bi-cloud-snow" style="font-size: 3rem"></i>
+						</c:if>						
+						
+						<c:if test="${status ==7}">
+							<i class="bi bi-cloud-snow" style="font-size: 3rem"></i>
+						</c:if>						
+						
+						
+												
 						</li>
 						<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
