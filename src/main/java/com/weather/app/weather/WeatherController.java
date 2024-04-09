@@ -34,6 +34,9 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 import org.springframework.web.util.UriBuilder;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 @Controller
@@ -83,21 +86,24 @@ public class WeatherController  {
 				.retrieve()
 				.bodyToMono(String.class);			//리턴 타입
 		String result =response.block();
-		 JSONParser parser = new JSONParser();		//응답을 제이슨 객체로 변경
-		 System.out.println(result);
 		 
-		    
-	        JSONObject obj = (JSONObject)parser.parse(result);
-	        JSONObject responses = (JSONObject)obj.get("response");
-	        JSONObject body = (JSONObject)responses.get("body");
-	        JSONObject items = (JSONObject) body.get("items");
-	        JSONArray list = (JSONArray)items.get("item"); //배열로 변경
-	        
-	        Map sm = (JSONObject)list.get(0);			   //map 에담아 값을 꺼낸다
-	        Map tm =  (JSONObject)list.get(3);
+		 
+		 	
+		 	ObjectMapper objectMapper = new ObjectMapper();
+		 	Map<String,Object>map = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
+		 					  map = (Map<String, Object>) map.get("response");
+		 					  map = (Map<String, Object>) map.get("body");
+		 					  map = (Map<String, Object>) map.get("items");
+		 					  List<Object> list = (List<Object>) map.get("item");
+		 					  for(Object a:list) {
+		 						  System.out.println(a);
+		 					  }
+		
+		 	
+		 	
 	        String region = "현재 날씨 금천구";
-	        String status = (String) sm.get("obsrValue");
-	        String temp = (String) tm.get("obsrValue")+"°";
+	        String status ="";
+	        String temp ="" ;
 	        model.addAttribute("region",region);
 	        model.addAttribute("status",status);
 	        model.addAttribute("temp",temp);
