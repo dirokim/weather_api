@@ -85,11 +85,14 @@ public class WeatherController  {
 		String result =response.block();
 		 JSONParser parser = new JSONParser();		//응답을 제이슨 객체로 변경
 		 System.out.println(result);
+		 
+		    
 	        JSONObject obj = (JSONObject)parser.parse(result);
 	        JSONObject responses = (JSONObject)obj.get("response");
 	        JSONObject body = (JSONObject)responses.get("body");
 	        JSONObject items = (JSONObject) body.get("items");
 	        JSONArray list = (JSONArray)items.get("item"); //배열로 변경
+	        
 	        Map sm = (JSONObject)list.get(0);			   //map 에담아 값을 꺼낸다
 	        Map tm =  (JSONObject)list.get(3);
 	        String region = "현재 날씨 금천구";
