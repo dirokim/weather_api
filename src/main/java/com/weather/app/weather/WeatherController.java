@@ -86,24 +86,25 @@ public class WeatherController  {
 				.retrieve()
 				.bodyToMono(String.class);			//리턴 타입
 		String result =response.block();
-		 
-		 
-		 	
+		String status ="";
+		String temp ="" ;
 		 	ObjectMapper objectMapper = new ObjectMapper();
 		 	Map<String,Object>map = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
+		 	Map<String,Object>map2 ;
 		 					  map = (Map<String, Object>) map.get("response");
 		 					  map = (Map<String, Object>) map.get("body");
 		 					  map = (Map<String, Object>) map.get("items");
-		 					  List<Object> list = (List<Object>) map.get("item");
+		 	List<Object> list = (List<Object>) map.get("item");
 		 					  for(Object a:list) {
-		 						  System.out.println(a);
+		 						  if(a.toString().contains("T1H")) {
+		 							  map = (Map<String, Object>) a;
+		 							 temp  = map.get("obsrValue").toString();		 							  
+		 						  }else if(a.toString().contains("PTY")) {
+		 							  map2 = (Map<String, Object>) a;
+		 							 status = map2.get("obsrValue").toString();
+		 						  }	  
 		 					  }
-		
-		 	
-		 	
 	        String region = "현재 날씨 금천구";
-	        String status ="";
-	        String temp ="" ;
 	        model.addAttribute("region",region);
 	        model.addAttribute("status",status);
 	        model.addAttribute("temp",temp);
