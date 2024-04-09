@@ -40,6 +40,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequestMapping("/weather/*")
 public class WeatherController  {
+	
 	@Value("${weather.encoding.key}")
 	private String servicekey;
 	
@@ -83,6 +84,7 @@ public class WeatherController  {
 				.bodyToMono(String.class);			//리턴 타입
 		String result =response.block();
 		 JSONParser parser = new JSONParser();		//응답을 제이슨 객체로 변경
+		 System.out.println(result);
 	        JSONObject obj = (JSONObject)parser.parse(result);
 	        JSONObject responses = (JSONObject)obj.get("response");
 	        JSONObject body = (JSONObject)responses.get("body");
@@ -147,7 +149,8 @@ public class WeatherController  {
 	        }
 	    rd.close();					//연결 종료
 	    con.disconnect();			//연결 종료		자원 닫아주기
-	        String result = sb.toString();				//JSON으로 응답받은 데이터 파싱
+	        String result = sb.toString();				//JSON으로 응답받은 데이터 파싱  
+	        System.out.println(result);
 	        JSONParser parser = new JSONParser();
 	        JSONObject obj = (JSONObject)parser.parse(result);
 	        JSONObject response = (JSONObject)obj.get("response");
