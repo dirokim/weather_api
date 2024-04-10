@@ -90,10 +90,10 @@ public class WeatherController  {
 		String temp ="" ;
 		 	ObjectMapper objectMapper = new ObjectMapper();
 		 	Map<String,Object>map = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
-		 	Map<String,Object>map2 ;
 		 					  map = (Map<String, Object>) map.get("response");
 		 					  map = (Map<String, Object>) map.get("body");
 		 					  map = (Map<String, Object>) map.get("items");
+		 					  Map<String,Object>map2 ;
 		 	List<Object> list = (List<Object>) map.get("item");
 		 					  for(Object a:list) {
 		 						  if(a.toString().contains("T1H")) {
@@ -164,7 +164,6 @@ public class WeatherController  {
 	        JSONParser parser = new JSONParser();
 	        JSONObject obj = (JSONObject)parser.parse(result);
 	        JSONObject response = (JSONObject)obj.get("response");
-	        System.out.println(response);
 	        JSONObject body = (JSONObject)response.get("body");
 	        JSONObject items = (JSONObject) body.get("items");
 	        JSONArray list = (JSONArray)items.get("item");
