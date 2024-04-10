@@ -85,9 +85,10 @@ public class WeatherController  {
 				.build())
 				.retrieve()
 				.bodyToMono(String.class);			//리턴 타입
-		String result =response.block();
+		String result = response.block();
 		String status ="";
 		String temp ="" ;
+		System.out.println(result);
 		 	ObjectMapper objectMapper = new ObjectMapper();
 		 	Map<String,Object>map = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
 		 					  map = (Map<String, Object>) map.get("response");
