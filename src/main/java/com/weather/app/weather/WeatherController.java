@@ -3,13 +3,9 @@ package com.weather.app.weather;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -60,10 +56,12 @@ public class WeatherController  {
 		String baseDate = ar[0];
 		String baseTime = ar[1];
 		String[] br = baseTime.split(",");
+		String baseTimes;
 		int num = Integer.parseInt(br[0]);  //시간
 		int sum = Integer.parseInt(br[1]);	//분
-		if(sum < 46)num--;					//api 45분부터 응답제공 45분 미만일시 이전 시간 데이터 받아오기
-		String baseTimes = ""+num+"00";
+		if(sum<46)num--;					//api 45분부터 응답제공 45분 미만일시 이전 시간 데이터 받아오기
+		if(num<10)baseTimes = "0"+num+"00";			
+		else baseTimes = ""+num+"00";	
 		//공공데이터포털에서 제공해주는 api 에서는 service key 가 다른 인코딩으로인해 값이 달라짐 DefaultUriBuilderFactory 이용해서 
 		//인코딩 모드 EncodingMode.VALUES_ONLY 로변경 
 		DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst");
@@ -79,7 +77,7 @@ public class WeatherController  {
 				.queryParam("pageNo", "1")
 				.queryParam("dataType", "JSON")
 				.queryParam("base_date", baseDate)
-				.queryParam("base_time", baseTimes)    //fix 
+				.queryParam("base_time", baseTimes)   
 				.queryParam("nx", "58")
 				.queryParam("ny", "125")
 				.build())
@@ -91,10 +89,8 @@ public class WeatherController  {
 		System.out.println(result);
 		 	ObjectMapper objectMapper = new ObjectMapper();
 		 	Map<String,Object>map = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
-		 					  map = (Map<String, Object>) map.get("response");
-		 					  map = (Map<String, Object>) map.get("body");
-		 					  map = (Map<String, Object>) map.get("items");
-		 					  Map<String,Object>map2 ;
+		 	Map<String,Object>map2 ;
+		 					  map = (Map<String, Object>) ((Map<String, Object>) ((Map<String, Object>) map.get("response")).get("body")).get("items");
 		 	List<Object> list = (List<Object>) map.get("item");
 		 					  for(Object a:list) {
 		 						  if(a.toString().contains("T1H")) {
