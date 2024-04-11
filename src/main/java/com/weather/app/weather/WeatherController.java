@@ -160,6 +160,7 @@ public class WeatherController  {
 	        System.out.println(result);
 	        JSONParser parser = new JSONParser();
 	        JSONObject obj = (JSONObject)parser.parse(result);
+	        System.out.println(obj.get("items"));
 	        JSONObject response = (JSONObject)obj.get("response");
 	        JSONObject body = (JSONObject)response.get("body");
 	        JSONObject items = (JSONObject) body.get("items");
