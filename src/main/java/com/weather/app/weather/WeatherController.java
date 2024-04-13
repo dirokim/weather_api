@@ -86,7 +86,6 @@ public class WeatherController  {
 		String result = response.block();
 		String status ="";
 		String temp ="" ;
-		System.out.println(result);
 		 	ObjectMapper objectMapper = new ObjectMapper();
 		 	Map<String,Object>map = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
 		 	Map<String,Object>map2 ;
