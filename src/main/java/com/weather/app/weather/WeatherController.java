@@ -60,7 +60,7 @@ public class WeatherController  {
 		int num = Integer.parseInt(br[0]);  //시간
 		int sum = Integer.parseInt(br[1]);	//분
 		if(sum<46)num--;					//api 45분부터 응답제공 45분 미만일시 이전 시간 데이터 받아오기
-		if(num<10)baseTimes = "0"+num+"00";			
+		if(num<10)baseTimes = "0"+num+"00";		// 1000 이전 9시일시 0900 0붙여주기	
 		else baseTimes = ""+num+"00";	
 		//공공데이터포털에서 제공해주는 api 에서는 service key 가 다른 인코딩으로인해 값이 달라짐 DefaultUriBuilderFactory 이용해서 
 		//인코딩 모드 EncodingMode.VALUES_ONLY 로변경 
