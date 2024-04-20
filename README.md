@@ -6,6 +6,8 @@ WebClient
 
 HttpURLConnection 
 
+JsonJackson 
+
 기상청에서 제공되는 지역별 엑셀표를 활용하여 위치 적용
 
 
