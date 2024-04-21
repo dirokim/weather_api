@@ -14,7 +14,6 @@ JsonJackson
 마주친 문제 
 
 1
-
 HttpURLConnection 에서와 같이 시간 설정해놓은 변수를 대입했더니 
 local variable defined in an enclosing scope must be final or effectively final 에러가 떴다
 자료를 찾아보니  람다식 함수에선 동일한 이름의 변수는 선언이 되지 않는다 
