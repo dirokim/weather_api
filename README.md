@@ -22,9 +22,9 @@ baseTimes 라는 다른 변수를 새로 선언해서 대입했더니 에러가 
 
 2 
 
-HttpUrlConnection 방식에서는 API 잘 되었지만 WebClient로  요청 보낸  이후에는 계속 서버 오류가 발생했다.
+HttpUrlConnection 방식에서는 API 잘 되었지만 WebClient로  요청 보낸 이후에는 계속 서버 오류가 발생했다.
 SERVICE KEY IS NOT REGISTERED ERROR 문서를 보니 서비스 키가 오지 않았을떄 일어나는 에러
-구글링을 했더니 WebClient를 이용해서 HTTP 요청을 할 때 WebClient가 queryParam을 UriComponentsBuilder#encode() 방식을 이용해서 
+구글링  WebClient를 이용해서 HTTP 요청을 할 때 WebClient가 queryParam을 UriComponentsBuilder#encode() 방식을 이용해서 
 인코딩하기 때문에 service key의 값이 달라져서 생기는 문제 
 DefaultUriBuilderFactory() 객체를 생성 setEncodingMode  VALUES_ONLY로 변경 
 uriBuilderFactory 에 값을 넣고
