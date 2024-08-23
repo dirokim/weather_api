@@ -171,7 +171,7 @@ public class WeatherController  {
 	        String temp = (String) tm.get("obsrValue")+"°";
 	        model.addAttribute("region",region);
 	        model.addAttribute("status",status);
-	        model.addAttribute("temp",temp);
+	        model.addAttribute("temp",temp); 
 	        return "index";
 	}
 	
