@@ -1,4 +1,4 @@
-##기상청에서 제공하는  Open API 를 통해 데이터 가져오기 
+##기상청에서 제공하는  Open API를 통해 데이터 가져오기 
 
 REST API 
 
@@ -29,5 +29,5 @@ SERVICE KEY IS NOT REGISTERED ERROR 문서를 보니 서비스 키가 오지 않
 DefaultUriBuilderFactory() 객체를 생성 setEncodingMode  VALUES_ONLY로 변경 
 uriBuilderFactory 에 값을 넣고
 요청을 보내면 제대로 잘 동작한다.
-
+하나의 문자열을 보내지만 queryParam으로 설정시 인코딩 설정이 달라짐
 
